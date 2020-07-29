@@ -19,24 +19,27 @@ export default class App extends React.Component {
 
     T2S = async () => {
         try {
-            console.log("SUBMIT TO IBM API : ")
+            console.log("SUBMIT TO API : ")
             this.setState({ uploading: true });
-            let body = JSON.stringify({"text":"hello world"})
+            let body = JSON.stringify({ "text": "hello world" })
             console.log(body)
-            let response = await fetch("https://api.eu-gb.text-to-speech.watson.cloud.ibm.com/instances/f0ab33a8-ffe8-4134-93ab-50258521f309/v1/synthesize", {
+            let response = await fetch("http://192.168.0.5:8081/api/test", {
                 body: body,
                 headers: {
-                    Accept: "audio/wav",
-                    Authorization: "Basic " + base64.encode("apikey:"+"FIHCnCa2Joh3wqI__TTdx6tA72o8TI9YZjbFs_a9z9pi"),
-                    "Content-Type": "application/json"
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    //  Authorization: "Basic " + base64.encode("apikey:"+"FIHCnCa2Joh3wqI__TTdx6tA72o8TI9YZjbFs_a9z9pi"),
                 },
                 method: "POST"
             });
-            let Blobresponse = await response.blob();
-            var ObjectUrl = URL.createObjectURL(Blobresponse)
+            let jsonresponse = response.json();
+            console.log(jsonresponse);
+            //  let Blobresponse = await response.blob();
+            //  var ObjectUrl = URL.createObjectURL(Blobresponse)
             //myAudio = document.querySelector('audio')
             //myAudio.src = ObjectUrl
-            console.log(ObjectUrl)
+
+            //console.log(ObjectUrl)
             this.setState({
                 uploading: false
             });
