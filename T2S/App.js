@@ -2,7 +2,6 @@ import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableHighlight, Dimensions, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import base64 from 'react-native-base64'
 
 const { width, height } = Dimensions.get('window')
 
@@ -19,11 +18,11 @@ export default class App extends React.Component {
 
     T2S = async () => {
         try {
-            console.log("SUBMIT TO API : ")
+            console.log("SUBMIT TO API :")
             this.setState({ uploading: true });
             let body = JSON.stringify({ "text": "hello world" })
             console.log(body)
-            let response = await fetch("http://192.168.0.5:8081/api/test", {
+            let response = await fetch("https://7514dc2c1576.ngrok.io/api/test", {
                 body: body,
                 headers: {
                     'Accept': 'application/json',
@@ -31,9 +30,10 @@ export default class App extends React.Component {
                     //  Authorization: "Basic " + base64.encode("apikey:"+"FIHCnCa2Joh3wqI__TTdx6tA72o8TI9YZjbFs_a9z9pi"),
                 },
                 method: "POST"
-            });
-            let jsonresponse = response.json();
-            console.log(jsonresponse);
+            }) 
+            
+           let jsonresponse = await response.json();
+           console.log(jsonresponse);
             //  let Blobresponse = await response.blob();
             //  var ObjectUrl = URL.createObjectURL(Blobresponse)
             //myAudio = document.querySelector('audio')
