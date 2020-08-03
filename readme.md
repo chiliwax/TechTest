@@ -1,9 +1,12 @@
 # Text2Speech
 
+requirements : 
+[Node.js](https://nodejs.org/) 
+[ReactNative](https://reactnative.dev/) 
+[ngrok](https://ngrok.com/)
+
 ## API
 ### Installation
-
-T2S-API requires [Node.js](https://nodejs.org/) [ReactNative](https://reactnative.dev/) [ngrok](https://ngrok.com/)
 
 Install the dependencies and devDependencies
 
