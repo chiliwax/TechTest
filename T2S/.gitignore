@@ -1,6 +1,6 @@
 
-# Created by https://www.toptal.com/developers/gitignore/api/node,reactnative
-# Edit at https://www.toptal.com/developers/gitignore?templates=node,reactnative
+# Created by https://www.toptal.com/developers/gitignore/api/reactnative,node
+# Edit at https://www.toptal.com/developers/gitignore?templates=reactnative,node
 
 ### Node ###
 # Logs
@@ -360,4 +360,4 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
-# End of https://www.toptal.com/developers/gitignore/api/node,reactnative
+# End of https://www.toptal.com/developers/gitignore/api/reactnative,node
