@@ -40,7 +40,7 @@ You should configure the ngrok tunnel in *config.json* (T2S root folder)
 
 ## Screenshot
 
-<img src="https://i.ibb.co/1RChZ7Z/Screenshot-2020-08-03-at-05-12-35.png" width="250"><img src="https://i.ibb.co/dK6XnwN/Screenshot-2020-08-03-at-05-12-29.png" width="250"><img src="https://i.ibb.co/Rc2HXnZ/Screenshot-2020-08-03-at-05-12-20.png" width="250"><img src="https://i.ibb.co/wK5PNnd/Screenshot-2020-08-03-at-05-09-38.png" width="250"><img src="https://i.ibb.co/wMP8zLr/Screenshot-2020-08-03-at-05-09-17.png" width="250">
+<img src="https://i.ibb.co/wK5PNnd/Screenshot-2020-08-03-at-05-09-38.png" width="250"><img src="https://i.ibb.co/1RChZ7Z/Screenshot-2020-08-03-at-05-12-35.png" width="250"><img src="https://i.ibb.co/dK6XnwN/Screenshot-2020-08-03-at-05-12-29.png" width="250"><img src="https://i.ibb.co/Rc2HXnZ/Screenshot-2020-08-03-at-05-12-20.png" width="250">
 
 
 
