@@ -1,84 +1,123 @@
-import { SafeAreaView, View, Text, TouchableHighlight, StyleSheet } from "react-native"
+import { SafeAreaView, View, Text, TouchableHighlight, Button, Alert } from "react-native"
 import React from 'react';
 import { FlatList } from "react-native-gesture-handler";
-import Icon from 'react-native-vector-icons/Ionicons';
 import { Audio } from 'expo-av';
 import Loader from '../Components/Loader'
+import { styles, stylesCard, cardButtonIconColor } from '../Components/style'
+import ResultHeader from '../Components/ResultHeader'
+import Icon from 'react-native-vector-icons/Ionicons';
+import { compareString } from '../service/compare'
+import NavigationService from '../navigators/NavigationService';
+const config = require('../config.json')
+
 
 export default class Result extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
             loading: false,
+            id: "NA"
         }
     }
 
-    playsong = async (url) => {
-        this.setState({loading:true})
-        await Audio.Sound.createAsync(
-            { uri: url },
-            { shouldPlay: true }
-        );
-        this.setState({loading:false})
+
+
+    static navigationOptions = ({ navigation }, ) => {
+        const id = navigation.getParam('id', 'NA')
+        if (id != 'NA') {
+            return {
+                headerRight: () => {
+                    return (
+                        <Button
+                            onPress={() => Alert.alert("Warning", "\nêtes vous sur de vouloir supprimer cet élément ?",
+                                [{ text: "non" }, { text: "oui", onPress: async () => { 
+                                    await deletefromhistory(id) 
+                                    console.log(navigation.getParam('id','nn'))
+                                    navigation.getParam('update','')()
+                                } }])
+                            }
+                            title="Delete"
+                            color="red"
+                        />
+                    )
+                }
+            }
+        }
     }
+
+
     render() {
         const { navigation } = this.props;
+        
         const data = navigation.getParam('data', 'Nothing to show');
-        console.log(data)
-        const array = [
-            { lang: data.lang, voice: data.voice, origin: data.originalText, end: data.resultText, url: data.path },
-            { lang: data.lang, voice: data.voice, origin: data.originalText, end: data.resultText, url: data.path }
-        ]
+        var array = []
+        data.forEach(element => {
+            array.push({ lang: element.lang, voice: element.voice, origin: element.originalText, end: element.resultText, url: element.path })
+        });
+        var mark = compareString(array[0].origin, array[array.length - 1].end)
         return (
-            <SafeAreaView style={{ flex: 1, backgroundColor: '#36393f' }}>
+            <SafeAreaView style={styles.container}>
                 <Loader isVisible={this.state.loading} />
+                <ResultHeader data={data} mark={mark} />
                 <FlatList
                     data={array}
                     keyExtractor={(item, index) => index.toString()}
-                    renderItem={({ item, index }) =>
-                        <View style={{ backgroundColor: 'white', margin: 10, padding: 10, borderRadius: 20 }}>
-                            <View style={{
-                                paddingHorizontal: 10, paddingTop: 5,
-                            }}>
-
-                                <Text style={{ color: 'grey' }}>Langue : {item.lang}</Text>
-                                <Text style={{ color: 'grey' }}>Voice : {item.voice}</Text>
-                            </View>
-                            <View style={{ margin: 10, marginBottom: 5 }}>
-                                <Text style={{ color: 'grey' }}>Texte Original :</Text>
-                                <Text>{item.origin}</Text>
-                            </View>
-                            <View style={{ margin: 10 }}>
-                                <Text style={{ color: 'grey' }}>Texte Final :</Text>
-                                <Text>{item.end}</Text>
-                            </View>
-                            <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 10, paddingBottom: 5 }}>
-
-                                <TouchableHighlight style={styles.button}
-                                    onPress={async () => {
-                                        await this.playsong(item.url)
-                                    }}>
-                                    <View style={{ flexDirection: 'row', flex: 1, alignItems: 'center', justifyContent: 'space-around', paddingHorizontal: 10, paddingVertical: 5 }}>
-                                        <Icon name="ios-play-circle" size={30} color='white' />
-                                    </View>
-                                </TouchableHighlight>
-                            </View>
-                        </View>
-                    }
+                    renderItem={this.card}
                 />
             </SafeAreaView>
         )
     }
+
+    playsong = async (url) => {
+        this.setState({ loading: true })
+        await Audio.Sound.createAsync(
+            { uri: url },
+            { shouldPlay: true }
+        );
+        this.setState({ loading: false })
+    }
+
+    
+
+    card = ({ item }) => {
+        return (
+            <View style={stylesCard.container}>
+                <View style={stylesCard.informationsContainer}>
+                    <Text style={stylesCard.informationsText}>Langue : {item.lang}</Text>
+                    <Text style={stylesCard.informationsText}>Voice : {item.voice}</Text>
+                </View>
+                <View style={{ margin: 10 }}>
+                    <Text style={stylesCard.finalText}>{item.end}</Text>
+                </View>
+                <View style={stylesCard.buttonContainer}>
+                    <TouchableHighlight style={stylesCard.button}
+                        onPress={async () => { await this.playsong(item.url) }}>
+                        <View style={stylesCard.icon}>
+                            <Icon name="ios-play-circle" size={30} color={cardButtonIconColor} />
+                        </View>
+                    </TouchableHighlight>
+                </View>
+            </View>
+        )
+    }
 }
 
-const styles = StyleSheet.create({
-    button: {
-        //height: 30,
-        width: '100%',
-        justifyContent: 'center',
-        alignContent: 'center',
-        backgroundColor: '#18c063',
-
-        borderRadius: 15,
-    },
-})
+deletefromhistory = async (id) => {
+    console.log("SUBMIT TO API...")
+    NavigationService.navigateH('History', {})
+    let body = JSON.stringify({ "id": id })
+    let response = await fetch(config.tunnel + "/api/deleteFromHistory", {
+        body: body,
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+        },
+        method: "POST"
+    })
+    await response.json();
+    
+    if (response.status == 200) {
+        NavigationService.navigateH('History', {"toto":"forceupdate"})
+    } else { Alert.alert("Unexpected Error", "\nstatus code : " + response.status) }
+    console.log("status code : " + response.status)
+}

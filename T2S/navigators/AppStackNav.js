@@ -1,107 +1,61 @@
 import { createStackNavigator } from 'react-navigation-stack';
 import { createAppContainer } from 'react-navigation';
 
+
 import Result from '../App/Result';
+import History from '../App/History'
 import Home from '../App/Home';
+
+import HeaderElement from '../Components/HeaderElement'
+import {stylesHeader} from '../Components/style'
+
+
+
 
 const AppStackNav = createStackNavigator({
     Home: {
         screen: Home,
         navigationOptions: {
-            // title: 'T2S',
-            // headerStyle: {
-            //     backgroundColor: '#36393f',
-            //     borderBottomColor: '#36393f',
-            //     shadowColor:'transparent',
-            // },
-            // headerTitleStyle: {
-            //     color: '#ecedee',
-            // },
-           headerShown: false
+            title: 'Text To Speech',
+            headerStyle: {
+                backgroundColor: stylesHeader.HeaderBackground,
+                shadowColor: 'transparent',
+            },
+            headerTitleStyle: {
+                color: stylesHeader.HeaderTextColor,
+            },
+            headerLeft: HeaderElement.infoLogo,
+            headerRight: HeaderElement.historyLogo
         }
     },
     Result: {
         screen: Result,
         navigationOptions: {
             title: 'Resultat',
+            headerBackTitle: 'Retour',
             headerStyle: {
-                backgroundColor: '#2f3136',
-                borderBottomColor: '#ecedee',
-                shadowColor:'transparent'
+                backgroundColor: stylesHeader.HeaderBackground,
+                shadowColor: 'transparent'
             },
             headerTitleStyle: {
-                color: '#ecedee',
+                color: stylesHeader.HeaderTextColor,
+            }
+        }
+    },
+    History: {
+        screen: History,
+        navigationOptions: {
+            title: 'Historique',
+            headerBackTitle: 'Retour',
+            headerStyle: {
+                backgroundColor: stylesHeader.HeaderBackground,
+                shadowColor: 'transparent'
             },
+            headerTitleStyle: {
+                color: stylesHeader.HeaderTextColor,
+            }
         }
     }
-    // Login: {
-    //     screen: AllergApp,
-    //     navigationOptions: {
-    //         header: null
-    //     }
-    // },
-    // Home: {
-    //     screen: Home,
-    //     navigationOptions: {
-    //         headerBackTitle: 'Cancel',
-    //         headerLeft: null,
-
-    //     }
-    // },
-    // AddItem: {
-    //     screen: AddItem,
-    //     navigationOptions: {
-    //         headerTintColor: 'black',
-    //         title: 'Add Item',
-    //         headerBackTitle: 'Back',
-    //         headerStyle: {
-    //             backgroundColor: '#ecedee',
-    //             borderBottomColor: '#ecedee',
-    //         },
-    //         headerRight: () => (
-    //             <TouchableOpacity onPress={() => NavigationService.navigateH('Home')}>
-    //                 <Icon size={25} style={{ marginRight: 10, justifyContent: 'center' }} name="md-close" />
-    //             </TouchableOpacity>
-    //         ),
-    // headerTitleStyle: {
-    //     color: '#18c063',
-    // },
-    //     }
-    // },
-    // AddItem2: {
-    //     screen: AddItem2,
-    //     navigationOptions: {
-    //         headerTintColor: 'black',
-    //         title: 'Add Item',
-    //         headerBackTitle: 'Back',
-    //         headerStyle: {
-    //             backgroundColor: '#ecedee',
-    //             borderBottomColor: '#ecedee',
-    //         },
-    //         headerRight: () => (
-    //             <TouchableOpacity onPress={() => NavigationService.navigateH('Home')}>
-    //                 <Icon size={25} style={{ marginRight: 10, justifyContent: 'center' }} name="md-close" />
-    //             </TouchableOpacity>
-    //         ),
-    //     }
-    // },
-    // AddItem3: {
-    //     screen: AddItem3,
-    //     navigationOptions: {
-    //         headerTintColor: 'black',
-    //         title: 'Add Item',
-    //         headerBackTitle: 'Back',
-    //         headerStyle: {
-    //             backgroundColor: '#ecedee',
-    //             borderBottomColor: '#ecedee',
-    //         },
-    //         headerRight: () => (
-    //             <TouchableOpacity onPress={() => NavigationService.navigateH('Home')}>
-    //                 <Icon size={25} style={{ marginRight: 10, justifyContent: 'center' }} name="md-close" />
-    //             </TouchableOpacity>
-    //         ),
-    //     }
-    // }
 });
 
 export default createAppContainer(AppStackNav);
