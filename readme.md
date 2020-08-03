@@ -5,10 +5,12 @@ requirements :
 [ReactNative](https://reactnative.dev/) 
 [ngrok](https://ngrok.com/)
 
+Install the dependencies and devDependencies
+
 ## API
 ### Installation
 
-Install the dependencies and devDependencies
+
 
 ```sh
 $ cd T2S_API
