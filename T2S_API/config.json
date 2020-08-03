@@ -1,7 +1,7 @@
 {
-    "T2S_apikey":"FIHCnCa2Joh3wqI__TTdx6tA72o8TI9YZjbFs_a9z9pi",
+    "T2S_apikey":"",
     "T2S_url":"https://api.eu-gb.text-to-speech.watson.cloud.ibm.com/instances/f0ab33a8-ffe8-4134-93ab-50258521f309",
-    "S2T_apikey":"Y3tTeCc2DRdYwpOtD1qFOZPbUjzDEDrv-EgSG8BCCN6Y",
+    "S2T_apikey":"",
     "S2T_url":"https://api.eu-gb.speech-to-text.watson.cloud.ibm.com/instances/3240b4a7-7b34-41f4-9c1c-0081fbf1adb6",
     "secret": "secretWeapon$12321"
 }
